@@ -41,29 +41,39 @@ This demo does not include any linting, continuous delivery, approval procecess,
 1. Request a free trial from Okta
     - Sign up for a trial: https://www.okta.com/free-trial/
     - Log into the Okta Admin Portal
-        - Edit the `User (default)` profile
-            - https://trial-12345-admin.okta.com/admin/universaldirectory
-        - Add an attribute for the Demo Application
+        - Browse to the **Directory** -> **Profile Editor** -> Click on the **User (default)** profile
+            - `https://trial-{your account number}-admin.okta.com/admin/universaldirectory`
+        - Click the **Add Attribute** button
+        - Add an attribute for the Demo Application `DemoApplicationAttribute`
             - Insert Screenshot
-        - Set the attribute to be owned by Okta
+        - *Optional* Edit the new attribute and set the **Source Priority** to **Inherit from Okta**
+            - This is necessary for Okta accounts where other systems source profile attributes
             - Insert Screenshot
     - Create an API Token
-        - https://trial-12345-admin.okta.com/admin/access/api/tokens
+        - Browse to **Security** -> **API** -> **Tokens**
+            - `https://trial-{your account number}-admin.okta.com/admin/access/api/tokens`
+        - Create a new token and save the value for the next step
     - Set the Token locally
-        - Copy `.env.sample` to `.env` and update each variable
+        - Copy `.env.sample` to `.env`
+        - Update the `OKTA_ORG_NAME` to match your Okta account
+        - Update the `OKTA_API_TOKEN` to match the token from the previous step
 
 ### Applying to Okta
 1. Applying Terraform
-    1. Run `task terraform:apply`
+    1. Run `task terraform-apply`
     1. Type `yes` to apply
     1. Confirm that a new application has been created via the Okta Admin Console
 
 1. Applying Attributes
-    1. Update the email addresses with the teams folder to correspond to the users in your Okta account. You can create new users and teams. New users with `example.com` work within the Okta test accounts.
+    1. Add your email address to the [demo-admins]. You can create new users and teams. New users with `example.com` work within the Okta test accounts.
     1. Run `task build` to create the syncer binary for your platform
     1. Run `task sync` to update 
+    1. Log in to your Okta account and see that you are assigned the `Demo Application` app
+    1. Remove your email address from [demo-admins]
+    1. Run `task sync` to remove the attribute from your account
+    1. Log in to your Okta account and see that you no longer have access to the `Demo Application` app 
 
-1. Scaling
+1. Further features
     1. If you you're interested in seeing how this works with more applications, add more teams and attributes
         1. In Okta's profile editor, add an additional attribute
         2. Create a new attribute file in this repo and map it to existing teams

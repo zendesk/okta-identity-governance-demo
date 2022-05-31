@@ -1,5 +1,5 @@
 type: attribute
-attribute_name: DemoApplication
+attribute_name: DemoApplicationAttribute
 attribute_map:
   test-team:
     - viewer
