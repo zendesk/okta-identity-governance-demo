@@ -45,11 +45,16 @@ This demo does not include any linting, continuous delivery, approval procecess,
             - `https://trial-{your account number}-admin.okta.com/admin/universaldirectory`
         1. Click the **Add Attribute** button
         1. Add an attribute for the Demo Application `DemoApplicationAttribute`
-            - Insert Screenshot
-        1. *Optional* 
+
+            <img width="400" alt="attribute" src="https://user-images.githubusercontent.com/10950253/171232805-2fb13fb5-d074-4c4f-988b-f0ee21ee6cfb.png">
+
+        1. *Optional for trial accounts*
             - Edit the new attribute and set the **Source Priority** to **Inherit from Okta**
+              <img width="400" alt="source" src="https://user-images.githubusercontent.com/10950253/171232899-ca23de5f-c57f-47f1-b55b-19981b34cbb0.png">
                 - This is necessary for Okta accounts where other systems source profile attributes
-                - Insert Screenshot
+
+                
+
     - Create an API Token
         - Browse to **Security** -> **API** -> **Tokens**
             - `https://trial-{your account number}-admin.okta.com/admin/access/api/tokens`
