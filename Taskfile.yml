@@ -1,0 +1,37 @@
+version: "3"
+
+dotenv: ['.env']
+
+tasks:
+  sync:
+    desc: Run syncer for attributes against your Okta account
+    dir: syncer
+    cmds:
+      - ./syncer
+
+  terraform-plan:
+    desc: Plans Terraform for Demo Application against your Okta account
+    dir: terraform
+    cmds:
+      - terraform init
+      - terraform plan
+
+  terraform-apply:
+    desc: Applies Terraform for Demo Application against your Okta account
+    dir: terraform
+    cmds:
+      - terraform init
+      - terraform apply
+
+  build:
+    desc: Build binary for syncer
+    dir: syncer
+    cmds:
+      - go get -d ./...
+      - go build -o syncer cmd/syncer/main.go
+
+  test:
+    desc: Test go
+    dir: syncer
+    cmds:
+      - go test ./...

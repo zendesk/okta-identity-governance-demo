@@ -1,0 +1,5 @@
+type: team
+team_name: new-team
+description: Not mapped to demo-application
+members:
+  - third.user@example.com

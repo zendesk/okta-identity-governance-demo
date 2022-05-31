@@ -1,0 +1,5 @@
+type: team
+team_name: demo-admins
+description: Example team of admins for the demo-application
+members:
+  - first.user@example.com

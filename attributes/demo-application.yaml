@@ -1,0 +1,7 @@
+type: attribute
+attribute_name: DemoApplication
+attribute_map:
+  test-team:
+    - viewer
+  demo-admins:
+    - admin

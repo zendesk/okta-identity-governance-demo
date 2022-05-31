@@ -1,0 +1,6 @@
+type: team
+team_name: test-team
+description: Simple team of employees
+members:
+  - first.user@example.com
+  - second.user@example.com
