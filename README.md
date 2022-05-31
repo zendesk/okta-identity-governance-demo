@@ -8,7 +8,7 @@ This repository allows you to run a simplified version of Zendesk's internal Ide
 ### Structure
 
 #### Terraform
-Terraform is used to manage all the infrastructure within Okta. This includes Application, Groups, Rules, and Authorization Servers. This demo includes a single SAML application. Terraform also fully suppports Okta [OAuth applications](https://registry.terraform.io/providers/okta/okta/latest/docs/resources/app_oauth). You can even provide custom claims for OAuth by purchasing [API Access Management](https://developer.okta.com/docs/concepts/api-access-management/) from Okta.
+Terraform is used to manage all the infrastructure within Okta, which includes Application, Groups, Rules, and Authorization Servers. This demo includes a single SAML application. Terraform also fully suppports Okta [OAuth applications](https://registry.terraform.io/providers/okta/okta/latest/docs/resources/app_oauth). You can even provide custom claims for OAuth by purchasing [API Access Management](https://developer.okta.com/docs/concepts/api-access-management/) from Okta.
 
 A Group Rule is used to assign the application to users automatically once the syncer assigns a value for the corresponding attribute on their user profile.
 
@@ -41,14 +41,15 @@ This demo does not include any linting, continuous delivery, approval procecess,
 1. Request a free trial from Okta
     - Sign up for a trial: https://www.okta.com/free-trial/
     - Log into the Okta Admin Portal
-        - Browse to the **Directory** -> **Profile Editor** -> Click on the **User (default)** profile
+        1. Browse to the **Directory** -> **Profile Editor** -> Click on the **User (default)** profile
             - `https://trial-{your account number}-admin.okta.com/admin/universaldirectory`
-        - Click the **Add Attribute** button
-        - Add an attribute for the Demo Application `DemoApplicationAttribute`
+        1. Click the **Add Attribute** button
+        1. Add an attribute for the Demo Application `DemoApplicationAttribute`
             - Insert Screenshot
-        - *Optional* Edit the new attribute and set the **Source Priority** to **Inherit from Okta**
-            - This is necessary for Okta accounts where other systems source profile attributes
-            - Insert Screenshot
+        1. *Optional* 
+            - Edit the new attribute and set the **Source Priority** to **Inherit from Okta**
+                - This is necessary for Okta accounts where other systems source profile attributes
+                - Insert Screenshot
     - Create an API Token
         - Browse to **Security** -> **API** -> **Tokens**
             - `https://trial-{your account number}-admin.okta.com/admin/access/api/tokens`
@@ -65,7 +66,7 @@ This demo does not include any linting, continuous delivery, approval procecess,
     1. Confirm that a new application has been created via the Okta Admin Console
 
 1. Applying Attributes
-    1. Add your email address to the [demo-admins]. You can create new users and teams. New users with `example.com` work within the Okta test accounts.
+    1. Add your email address to the [demo-admins team](teams/demo-admins.yaml) in this repo. 
     1. Run `task build` to create the syncer binary for your platform
     1. Run `task sync` to update 
     1. Log in to your Okta account and see that you are assigned the `Demo Application` app
@@ -73,8 +74,10 @@ This demo does not include any linting, continuous delivery, approval procecess,
     1. Run `task sync` to remove the attribute from your account
     1. Log in to your Okta account and see that you no longer have access to the `Demo Application` app 
 
-1. Further features
-    1. If you you're interested in seeing how this works with more applications, add more teams and attributes
-        1. In Okta's profile editor, add an additional attribute
-        2. Create a new attribute file in this repo and map it to existing teams
+1. Additional workflows
+    1. If you you're interested in seeing how this works with multiple applications, add more users, teams, and attributes
+
+        1. You can create new users and teams. New users with `example.com` work within the Okta test accounts.
+        1. To add additional applications, add additional attributes in Okta's profile editor, 
+        2. Create a new attribute files in this repo and map it to existing teams
         3. Run `task sync` and check each user's profile in Okta
