@@ -13,7 +13,7 @@ func TestCompareUsers(t *testing.T) {
 		{
 			Email: "test@example.com",
 			Attributes: map[string][]string{
-				"test-app": []string{"admin"},
+				"test-app": {"admin"},
 			},
 		},
 	}
@@ -22,7 +22,7 @@ func TestCompareUsers(t *testing.T) {
 		{
 			Email: "test2@example.com",
 			Attributes: map[string][]string{
-				"test-app": []string{"admin", "read-only"},
+				"test-app": {"admin", "read-only"},
 			},
 		},
 	}
@@ -70,7 +70,7 @@ func TestCompareUsers(t *testing.T) {
 				},
 			},
 			[]yaml.User{
-				yaml.User{
+				{
 					Email:      "test@example.com",
 					Attributes: map[string][]string{},
 				},
@@ -84,7 +84,7 @@ func TestCompareUsers(t *testing.T) {
 				{
 					Email: "test2@example.com",
 					Attributes: map[string][]string{
-						"test-app": []string{"read-only"},
+						"test-app": {"read-only"},
 					},
 				},
 			},
@@ -92,13 +92,13 @@ func TestCompareUsers(t *testing.T) {
 				{
 					Email: "test2@example.com",
 					Attributes: map[string][]string{
-						"test-app": []string{"read-only"},
+						"test-app": {"read-only"},
 					},
 				},
 				{
 					Email: "test@example.com",
 					Attributes: map[string][]string{
-						"test-app": []string{""},
+						"test-app": {""},
 					},
 				},
 			},

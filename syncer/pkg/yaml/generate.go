@@ -1,8 +1,10 @@
 package yaml
 
+// GenerateUsers uses team and attribute data to generate complete user profiles
 func GenerateUsers(attributes []Attribute, teams []Team) ([]User, error) {
 	// Create map of all YAML emails users
 	userMap := map[string]User{}
+
 	for _, team := range teams {
 		for _, member := range team.Members {
 			userMap[member] = User{Email: member, Attributes: make(map[string][]string)}

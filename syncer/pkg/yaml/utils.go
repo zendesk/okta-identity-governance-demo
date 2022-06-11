@@ -35,14 +35,14 @@ func sortedArrayEqual(a, b []string) bool {
 		return false
 	}
 
-	a_copy := make([]string, len(a))
-	b_copy := make([]string, len(b))
+	aCopy := make([]string, len(a))
+	bCopy := make([]string, len(b))
 
-	copy(a_copy, a)
-	copy(b_copy, b)
+	copy(aCopy, a)
+	copy(bCopy, b)
 
-	sort.Strings(a_copy)
-	sort.Strings(b_copy)
+	sort.Strings(aCopy)
+	sort.Strings(bCopy)
 
-	return reflect.DeepEqual(a_copy, b_copy)
+	return reflect.DeepEqual(aCopy, bCopy)
 }

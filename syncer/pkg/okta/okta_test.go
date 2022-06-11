@@ -30,18 +30,18 @@ func TestTransformOktaUsers(t *testing.T) {
 	testUsers := []yaml.User{
 		{
 			Email:  "test@example.com",
-			OktaId: "00u179bsnjqfXS6dH697",
+			OktaID: "00u179bsnjqfXS6dH697",
 			Attributes: map[string][]string{
-				"test-app":   []string{"admin"},
-				"second-app": []string{""},
+				"test-app":   {"admin"},
+				"second-app": {""},
 			},
 		},
 		{
 			Email:  "test2@example.com",
-			OktaId: "00u190bsnjqfXS6dH697",
+			OktaID: "00u190bsnjqfXS6dH697",
 			Attributes: map[string][]string{
-				"test-app":   []string{""},
-				"second-app": []string{"role1", "role2"},
+				"test-app":   {""},
+				"second-app": {"role1", "role2"},
 			},
 		},
 	}

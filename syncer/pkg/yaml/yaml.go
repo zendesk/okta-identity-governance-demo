@@ -1,7 +1,6 @@
 package yaml
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -11,12 +10,14 @@ import (
 	yaml "gopkg.in/yaml.v3"
 )
 
+// Attribute represents the data that comes from attribute YAML files
 type Attribute struct {
 	Type          string              `yaml:"type"`
 	AttributeName string              `yaml:"attribute_name"`
 	AttributeMap  map[string][]string `yaml:"attribute_map"`
 }
 
+// Team represents the data that comes from team YAML files
 type Team struct {
 	Type     string   `yaml:"type"`
 	TeamName string   `yaml:"team_name"`
@@ -35,10 +36,12 @@ func getYamlFiles() ([]string, error) {
 				if strings.Contains(path, ".yaml") {
 					files = append(files, path)
 				}
+
 				return nil
 			})
 		if err != nil {
 			log.Println(err)
+
 			return nil, err
 		}
 	}
@@ -48,7 +51,7 @@ func getYamlFiles() ([]string, error) {
 func importYamlFile(path string) (map[interface{}]interface{}, error) {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
-		fmt.Print(err)
+		log.Fatalln(err)
 		return nil, err
 	}
 	m := make(map[interface{}]interface{})
@@ -61,6 +64,7 @@ func importYamlFile(path string) (map[interface{}]interface{}, error) {
 	return m, err
 }
 
+// GetYaml pulls all data from the YAML and returns slices of Attributes and Users
 func GetYaml() ([]Attribute, []User, error) {
 	attributes := []Attribute{}
 	teams := []Team{}

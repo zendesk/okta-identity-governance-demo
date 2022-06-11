@@ -1,15 +1,15 @@
 package yaml
 
-import (
-	"fmt"
-)
+import "log"
 
+// User represents the profile attributes and identifiers for an Okta user
 type User struct {
 	Email      string
-	OktaId     string
+	OktaID     string
 	Attributes map[string][]string
 }
 
+// CompareUsers compares YAML and Okta Users and returns a list of Users requiring an update
 func CompareUsers(yamlUsers, oktaUsers []User, attributes []Attribute) ([]User, error) {
 	changeSet := []User{}
 
@@ -20,14 +20,14 @@ func CompareUsers(yamlUsers, oktaUsers []User, attributes []Attribute) ([]User, 
 			if yamlUser.Email == oktaUser.Email {
 				found = true
 				if !mapsEqual(yamlUser.Attributes, oktaUser.Attributes) {
-					fmt.Printf("Updating user in Okta: %v \t\n Current: %v\t\n Desired: %v\n\n", yamlUser.Email, oktaUser.Attributes, yamlUser.Attributes)
-					yamlUser.OktaId = oktaUser.OktaId
+					log.Printf("Updating user in Okta: %v \t\n Current: %v\t\n Desired: %v\n\n", yamlUser.Email, oktaUser.Attributes, yamlUser.Attributes)
+					yamlUser.OktaID = oktaUser.OktaID
 					changeSet = append(changeSet, yamlUser)
 				}
 			}
 		}
 		if !found {
-			fmt.Printf("User not found in Okta: %v\n", yamlUser.Email)
+			log.Printf("User not found in Okta: %v\n", yamlUser.Email)
 		}
 	}
 
@@ -55,7 +55,7 @@ func CompareUsers(yamlUsers, oktaUsers []User, attributes []Attribute) ([]User, 
 				for _, attribute := range attributes {
 					oktaUser.Attributes[attribute.AttributeName] = []string{""}
 				}
-				fmt.Printf("Clearing out permissions from Okta user missing from YAML: %v\n", oktaUser.Email)
+				log.Printf("Clearing out permissions from Okta user missing from YAML: %v\n", oktaUser.Email)
 				changeSet = append(changeSet, oktaUser)
 			}
 		}

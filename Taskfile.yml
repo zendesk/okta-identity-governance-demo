@@ -1,6 +1,6 @@
 version: "3"
 
-dotenv: ['.env']
+dotenv: [".env"]
 
 tasks:
   sync:
@@ -35,3 +35,9 @@ tasks:
     dir: syncer
     cmds:
       - go test ./...
+
+  lint:
+    desc: Lint using go
+    dir: syncer
+    cmds:
+      - golangci-lint run ./...

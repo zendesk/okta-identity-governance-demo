@@ -11,30 +11,32 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/okta"
 )
 
-type OktaClient struct {
+// Client holds the okta client and associated config
+type Client struct {
 	Client   *okta.Client
 	Ctx      context.Context
 	OrgName  string
-	OrgUrl   string
-	ApiToken string
+	OrgURL   string
+	APIToken string
 }
 
-func NewOktaClient() (OktaClient, error) {
+// NewOktaClient creates and Okta client using env variables
+func NewOktaClient() (Client, error) {
 	org := os.Getenv("OKTA_ORG_NAME")
-	baseUrl := os.Getenv("OKTA_BASE_URL")
+	baseURL := os.Getenv("OKTA_BASE_URL")
 	apiToken := os.Getenv("OKTA_API_TOKEN")
 	ctx, cli, err := okta.NewClient(
 		context.TODO(),
-		okta.WithOrgUrl("https://"+org+"."+baseUrl),
+		okta.WithOrgUrl("https://"+org+"."+baseURL),
 		okta.WithToken(apiToken),
 	)
-	client := OktaClient{Client: cli, Ctx: ctx}
+	client := Client{Client: cli, Ctx: ctx}
 
 	return client, err
 }
 
-func (c *OktaClient) GetOktaUsers(attributes []yaml.Attribute) ([]yaml.User, error) {
-
+// GetOktaUsers returns all Okta users with sourced attributes transformed into a comparable type
+func (c *Client) GetOktaUsers(attributes []yaml.Attribute) ([]yaml.User, error) {
 	users, _, err := c.Client.User.ListUsers(c.Ctx, nil)
 	if err != nil {
 		return nil, err
@@ -44,15 +46,15 @@ func (c *OktaClient) GetOktaUsers(attributes []yaml.Attribute) ([]yaml.User, err
 	return transformedUsers, err
 }
 
-func (c *OktaClient) UpdateUser(user yaml.User, attributes []yaml.Attribute) error {
-	userToUpdate, _, err := c.Client.User.GetUser(c.Ctx, user.OktaId)
+// UpdateUser updates a single Okta User - changes specified profile attributes only
+func (c *Client) UpdateUser(user yaml.User, attributes []yaml.Attribute) error {
+	userToUpdate, _, err := c.Client.User.GetUser(c.Ctx, user.OktaID)
 	if err != nil {
 		return err
 	}
 
 	newProfile := *userToUpdate.Profile
 	for _, attribute := range attributes {
-
 		newProfile[attribute.AttributeName] = strings.Join(user.Attributes[attribute.AttributeName], ",")
 	}
 	updateUser := &okta.User{
@@ -67,6 +69,7 @@ func (c *OktaClient) UpdateUser(user yaml.User, attributes []yaml.Attribute) err
 	return nil
 }
 
+// TransformOktaUsers moves the data retrieved from Okta into the internal struct for comparison
 func TransformOktaUsers(users []*okta.User, attributes []yaml.Attribute) []yaml.User {
 	transformedUsers := []yaml.User{}
 	for _, user := range users {
@@ -76,19 +79,18 @@ func TransformOktaUsers(users []*okta.User, attributes []yaml.Attribute) []yaml.
 			if value, found := profile[attribute.AttributeName]; found {
 				if value.(string) == "" {
 					updatedAttributes[attribute.AttributeName] = []string{""}
+
 					continue
 				}
 				v := fmt.Sprintf("%v", value)
-				cleaned := strings.Replace(v, ",", " ", -1)
+				cleaned := strings.ReplaceAll(v, ",", " ")
 
 				updatedAttributes[attribute.AttributeName] = strings.Fields(cleaned)
-
 			} else {
 				updatedAttributes[attribute.AttributeName] = []string{""}
 			}
-
 		}
-		transformedUsers = append(transformedUsers, yaml.User{Email: profile["email"].(string), OktaId: user.Id, Attributes: updatedAttributes})
+		transformedUsers = append(transformedUsers, yaml.User{Email: profile["email"].(string), OktaID: user.Id, Attributes: updatedAttributes})
 	}
 	return transformedUsers
 }
