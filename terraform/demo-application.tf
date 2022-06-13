@@ -15,7 +15,7 @@ resource "okta_app_saml" "demo-application" {
   attribute_statements {
       name   = "groups"
       type   = "EXPRESSION"
-      values = ["Arrays.flatten(user.DemoApplication)"]
+      values = ["Arrays.flatten(user.DemoApplicationAttribute)"]
   }
 }
 
@@ -31,7 +31,7 @@ resource "okta_group_rule" "demo-application-group-rule" {
     okta_group.demo-application-users.id
   ]
   expression_type   = "urn:okta:expression:1.0"
-  expression_value  = "! Arrays.isEmpty(user.DemoApplication)"
+  expression_value  = "! Arrays.isEmpty(user.DemoApplicationAttribute)"
 }
 
 resource "okta_app_group_assignment" "demo-application-assignment" {
