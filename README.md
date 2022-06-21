@@ -86,3 +86,12 @@ This demo does not include any linting, continuous delivery, approval procecess,
         1. To add additional applications, add additional attributes in Okta's profile editor, 
         2. Create a new attribute files in this repo and map it to existing teams
         3. Run `task sync` and check each user's profile in Okta
+
+
+## Copyright and license
+Copyright 2022 Zendesk, Inc.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
