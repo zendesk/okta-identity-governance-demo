@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	. "github.com/onsi/gomega"
-	"github.com/zendesk/okta-identity-governance-demo/pkg/yaml"
+	"github.com/zendesk/okta-identity-governance-demo/yaml"
 )
 
 func TestCompareUsers(t *testing.T) {

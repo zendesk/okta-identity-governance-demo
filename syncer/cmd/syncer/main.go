@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/zendesk/okta-identity-governance-demo/pkg/okta"
-	"github.com/zendesk/okta-identity-governance-demo/pkg/yaml"
+	"github.com/zendesk/okta-identity-governance-demo/okta"
+	"github.com/zendesk/okta-identity-governance-demo/yaml"
 )
 
 func main() {

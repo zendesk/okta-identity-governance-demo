@@ -6,8 +6,8 @@ import (
 
 	ookta "github.com/okta/okta-sdk-golang/v2/okta"
 	. "github.com/onsi/gomega"
-	"github.com/zendesk/okta-identity-governance-demo/pkg/okta"
-	"github.com/zendesk/okta-identity-governance-demo/pkg/yaml"
+	"github.com/zendesk/okta-identity-governance-demo/okta"
+	"github.com/zendesk/okta-identity-governance-demo/yaml"
 )
 
 func TestTransformOktaUsers(t *testing.T) {

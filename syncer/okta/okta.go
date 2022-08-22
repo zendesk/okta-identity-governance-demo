@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/zendesk/okta-identity-governance-demo/pkg/yaml"
+	"github.com/zendesk/okta-identity-governance-demo/yaml"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
 )
